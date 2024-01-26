@@ -15,7 +15,7 @@
   - horizontal_class: {Boolean} Add a card--horizontal class if set to true. Default: false (optional)
   - horizontal_quick_add: {Boolean} Changes the quick add button styles when set to true. Default: false (optional)
   - placeholder_image: {String} The placeholder image to use when no product exists. Default: 'product-apparel-2' (optional)
-
+  - show_out_of_stock: {Boolean} Show the out of stock badge. Default: false (optional)
   Usage:
   {% render 'card-product', show_vendor: section.settings.show_vendor %}
 {% endcomment %}
@@ -204,6 +204,12 @@
               <div class="card__information-volume-pricing-note">
                 <span class="caption">{{ 'products.product.volume_pricing.note' | t }}</span>
               </div>
+            {%- endif -%}
+            {%- if show_oss_contribution and card_product.metafields.custom.donation_amount -%}
+              <p><small>OSS contribution: {{ card_product.metafields.custom.donation_amount | times: 100 | money }}</small></p>
+            {%- endif -%}
+            {%- if card_product.available == false and show_out_of_stock -%}
+              <p>Out of Stock</p>
             {%- endif -%}
           </div>
         </div>
